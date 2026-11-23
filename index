@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ExamGuard | Online Exam Proctoring</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">EG</div><div><strong>ExamGuard</strong><small>PROCTORING PORTAL</small></div></div>
+    <div class="nav-label">WORKSPACE</div>
+    <button class="nav active" data-view="student"><span>▣</span> Student exam</button>
+    <button class="nav" data-view="teacher"><span>▤</span> Teacher dashboard</button>
+    <div class="sidebar-note"><span class="live-dot"></span> Demo environment <small>Local browser prototype</small></div>
+    <div class="side-footer"><a href="../index.html" style="color:#a9c4ff;text-decoration:none;font-weight:600">← Project overview</a><br><br>SEPM · Case Study 06<br><small>Online Exam Proctoring Tool</small></div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div><div class="eyebrow">EXAM MANAGEMENT / <span id="crumb">STUDENT EXAM</span></div><h1 id="page-title">Student examination</h1></div>
+      <div class="top-actions"><span class="status-pill"><i></i> System ready</span><div class="avatar">EG</div></div>
+    </header>
+
+    <section id="student-view" class="view">
+      <div id="login-panel" class="login-layout">
+        <div class="welcome-panel">
+          <div class="tag">SECURE ASSESSMENT SPACE</div>
+          <h2>Focus on your exam.<br><em>We'll log the activity.</em></h2>
+          <p>Start a sample assessment and see how browser activity events are recorded for teacher review.</p>
+          <div class="welcome-points"><span>✓ Timed assessment</span><span>✓ Activity event log</span><span>✓ Instant score summary</span></div>
+        </div>
+        <div class="card login-card">
+          <div class="card-kicker">CANDIDATE ACCESS</div><h2>Student sign in</h2><p class="muted">Use any sample name and roll number to enter.</p>
+          <form id="login-form">
+            <label for="student-name">Full name</label><input id="student-name" placeholder="e.g. Ananya Rao" required>
+            <label for="roll-number">Roll number</label><input id="roll-number" placeholder="e.g. 06" required>
+            <label for="exam-code">Exam code</label><input id="exam-code" value="SEPM-06" required>
+            <button class="btn primary full" type="submit">Continue to exam <span>→</span></button>
+          </form>
+          <div class="privacy-note">Demo only · No camera or microphone is accessed.</div>
+        </div>
+      </div>
+
+      <div id="exam-panel" class="hidden">
+        <div class="exam-banner">
+          <div><div class="card-kicker">CURRENT ASSESSMENT</div><h2>Software Engineering Basics</h2><p id="candidate-line" class="muted">Candidate</p></div>
+          <div class="timer-wrap"><small>TIME REMAINING</small><strong id="timer">10:00</strong></div>
+        </div>
+        <div class="exam-grid">
+          <div class="card question-card">
+            <div class="question-meta"><span id="question-count">QUESTION 01 / 05</span><span class="mark">1 MARK</span></div>
+            <h2 id="question-text"></h2>
+            <div id="options" class="options"></div>
+            <div class="question-actions"><button id="prev-btn" class="btn secondary">Previous</button><button id="next-btn" class="btn primary">Next question →</button><button id="submit-btn" class="btn danger">Submit exam</button></div>
+          </div>
+          <div class="card monitor-card">
+            <div class="card-head"><div><div class="card-kicker">LIVE SESSION</div><h3>Activity monitor</h3></div><span class="recording"><i></i> RECORDING</span></div>
+            <div class="monitor-stat"><div class="stat-icon">⌁</div><div><strong id="event-total">0</strong><small>Events recorded</small></div></div>
+            <div class="monitor-status"><span class="live-dot"></span><div><b>Browser monitoring active</b><small>Tab visibility and inactivity events</small></div></div>
+            <div class="mini-log-title">RECENT ACTIVITY</div><div id="student-mini-log" class="mini-log"><p class="empty">No activity yet.</p></div>
+            <div class="monitor-foot">Events are indicators for review, not proof of misconduct.</div>
+          </div>
+        </div>
+      </div>
+      <div id="result-panel" class="card result-panel hidden">
+        <div class="result-icon">✓</div><div class="card-kicker">ASSESSMENT COMPLETE</div><h2>Exam submitted</h2><p id="result-summary" class="muted"></p>
+        <div class="result-score"><strong id="final-score">0/5</strong><span>Your score</span></div>
+        <button class="btn primary" id="new-session-btn">Start a new demo session</button>
+      </div>
+    </section>
+
+    <section id="teacher-view" class="view hidden">
+      <div class="summary-grid">
+        <div class="card summary-card"><span class="summary-icon blue">♙</span><div><small>SESSIONS</small><strong id="sessions-count">0</strong><span>Recorded candidates</span></div></div>
+        <div class="card summary-card"><span class="summary-icon orange">⚑</span><div><small>ACTIVITY EVENTS</small><strong id="events-count">0</strong><span>Across all sessions</span></div></div>
+        <div class="card summary-card"><span class="summary-icon green">✓</span><div><small>EXAMS SUBMITTED</small><strong id="submitted-count">0</strong><span>Completed sessions</span></div></div>
+      </div>
+      <div class="card dashboard-card">
+        <div class="dashboard-heading"><div><div class="card-kicker">SESSION OVERSIGHT</div><h2>Candidate activity records</h2><p class="muted">Review recorded events and session summaries.</p></div><button id="export-btn" class="btn secondary">↓ Export CSV</button></div>
+        <div class="table-wrap"><table><thead><tr><th>TIME</th><th>STUDENT</th><th>ROLL NO.</th><th>EVENT</th><th>DETAIL</th></tr></thead><tbody id="activity-table"><tr><td colspan="5" class="empty-cell">No activity records yet. Start a student demo first.</td></tr></tbody></table></div>
+      </div>
+      <div class="card dashboard-card">
+        <div class="dashboard-heading"><div><div class="card-kicker">CANDIDATE REGISTER</div><h2>Exam sessions</h2></div><button id="clear-btn" class="btn text-btn">Clear demo data</button></div>
+        <div id="session-list" class="session-list"><p class="empty-cell">No sessions recorded yet.</p></div>
+      </div>
+      <p class="disclaimer">Academic prototype: events such as tab changes or inactivity can have innocent explanations. A human reviewer should assess context. This demo does not capture video, audio, screen contents, or prevent cheating.</p>
+    </section>
+    <footer class="footer">EXAMGUARD · SEPM CASE STUDY 06 <span>Academic demonstration prototype</span></footer>
+  </main>
+</div>
+<div id="toast" class="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>
